@@ -40,6 +40,7 @@ class NoiseReading {
 /// via the [noiseStream].
 class NoiseMeter {
   AudioStreamer _streamer = AudioStreamer();
+  bool _isRecording = false;
   late StreamController<NoiseReading> _controller;
   Stream<NoiseReading>? _stream;
 
@@ -82,11 +83,19 @@ class NoiseMeter {
   void _start() async {
     try {
       _streamer.start(_onAudio, _onInternalError);
+      _isRecording = true;
     } catch (error) {
       print(error);
     }
   }
 
   /// Stop noise monitoring
-  void _stop() async => await _streamer.stop();
+  void _stop() async {
+    _isRecording = await _streamer.stop();
+  }
+
+  void dispose() async {
+    _stop();
+    _controller.close();
+  }
 }

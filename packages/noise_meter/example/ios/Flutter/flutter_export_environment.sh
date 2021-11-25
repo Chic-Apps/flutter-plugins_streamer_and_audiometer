@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/bardram/dev/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/bardram/dev/flutter-plugins/packages/noise_meter/example"
+export "FLUTTER_ROOT=/Users/meee/Utils/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/meee/Projects/flutter-plugins_streamer_and_audiometer/packages/noise_meter/example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

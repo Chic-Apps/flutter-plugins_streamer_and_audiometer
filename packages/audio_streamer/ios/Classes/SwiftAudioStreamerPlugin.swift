@@ -66,13 +66,26 @@ public class SwiftAudioStreamerPlugin: NSObject, FlutterPlugin, FlutterStreamHan
     func startRecording() {
         engine = AVAudioEngine()
       
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .mixWithOthers)
-        try! AVAudioSession.sharedInstance().setActive(true)
+        // try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .mixWithOthers)
+        // try! AVAudioSession.sharedInstance().setActive(true)
       
+          //Changed to not mute the music that was previously playing
+          if #available(iOS 10.0, *) {
+              try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [.mixWithOthers, .defaultToSpeaker])
+          }
+          else {
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: .mixWithOthers)
+            try! AVAudioSession.sharedInstance().setActive(true)
+          }
+
         let input = engine.inputNode
         let bus = 0
 
-        input.installTap(onBus: bus, bufferSize: 22050, format: input.inputFormat(forBus: bus)) { (buffer, time) -> Void in
+//        input.installTap(onBus: bus, bufferSize: 22050, format: input.inputFormat(forBus: bus)) { (buffer, time) -> Void in
+
+        //Changed bufferSize to improve reactivity
+        //BUFFERSIZE
+        input.installTap(onBus: bus, bufferSize: 100, format: input.inputFormat(forBus: bus)) { (buffer, time) -> Void in
             let samples = buffer.floatChannelData?[0]
             // audio callback, samples in samples[0]...samples[buffer.frameLength-1]
             let arr = Array(UnsafeBufferPointer(start: samples, count: Int(buffer.frameLength)))

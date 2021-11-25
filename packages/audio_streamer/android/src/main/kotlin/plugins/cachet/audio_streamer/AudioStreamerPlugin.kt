@@ -124,7 +124,6 @@ public class AudioStreamerPlugin : FlutterPlugin, RequestPermissionsResultListen
                 record.read(audioBuffer, 0, audioBuffer.size)
                 Handler(Looper.getMainLooper()).post {
 
-                    Log.d("TAG", "$bufferSize")
 
                     /// Convert to list in order to send via EventChannel.
                     val audioBufferList = ArrayList<Double>()

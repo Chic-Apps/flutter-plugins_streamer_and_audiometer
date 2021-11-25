@@ -12,11 +12,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # audio_streamer: ^2.0.3
-  audio_streamer:
-    git:
-      url: git@github.com:Chic-Apps/flutter-plugins_streamer_noisemeter.git
-      path: packages/audio_streamer
+  audio_streamer: ^2.0.3
+  # audio_streamer:
+  #   git:
+  #     url: git@github.com:Chic-Apps/flutter-plugins_streamer_noisemeter.git
+  #     path: packages/audio_streamer
 
 
 dev_dependencies:

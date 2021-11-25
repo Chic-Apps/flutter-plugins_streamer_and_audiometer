@@ -97,13 +97,6 @@ public class AudioStreamerPlugin : FlutterPlugin, RequestPermissionsResultListen
      * https://www.newventuresoftware.com/blog/record-play-and-visualize-raw-audio-data-in-android
      */
     private fun streamMicData() {
-        //Reducing the bufferSize to minimun to improve reactivity
-        // bufferSize = AudioRecord.getMinBufferSize(sampleRate,
-        //         AudioFormat.CHANNEL_IN_MONO,
-        //         AudioFormat.ENCODING_PCM_16BIT)
-        //BUFFERSIZE
-        bufferSize = 100
-
         Thread(Runnable {
             Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO)
             val audioBuffer = ShortArray(bufferSize / 2)
@@ -123,9 +116,6 @@ public class AudioStreamerPlugin : FlutterPlugin, RequestPermissionsResultListen
                 /** Read data into buffer  */
                 record.read(audioBuffer, 0, audioBuffer.size)
                 Handler(Looper.getMainLooper()).post {
-
-                    Log.d("TAG", "$bufferSize")
-
                     /// Convert to list in order to send via EventChannel.
                     val audioBufferList = ArrayList<Double>()
                     for (impulse in audioBuffer) {
